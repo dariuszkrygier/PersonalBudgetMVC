@@ -1,3 +1,500 @@
-body {
-    margin-top: 3em;
+body
+{
+	/* Background pattern from Toptal Subtle Patterns */
+	background-image: url("/img/random_grey_variations.png");
+	font-size: 20px;
+	font-family: 'Open Sans', sans-serif;
+	min-height:100vh;
+}
+
+h1
+{
+	font-weight: 700;
+	font-size: 28px;
+	margin-bottom: 20px;
+	margin-top: 5px;
+	text-align: center;
+	width:100%;
+	padding:5px;
+	
+}
+
+h2
+{
+	padding:5px;
+	width:100%;
+	text-align: center;
+}
+
+h3
+{
+	padding:5px;
+	width:100%;
+	text-align: center;
+	font-size: 20px;
+}
+
+#logowanie
+{
+	padding:40px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;	
+	align-items: center;
+	justify-content: center;
+}
+
+#showBalanceChosenDate
+{
+	margin-left: auto;
+	margin-right: auto;
+	align-items: center;
+	justify-content: center;
+}
+
+
+.form-group input
+{
+	background-color: #858585;
+	color:  #ededed;
+	font-size: 16px;
+	border: 1px solid white;
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+	margin-top:20px;
+	
+}
+
+
+.changeMarginOfInput input
+{
+	background-color: #858585;
+	color:  #ededed;
+	font-size: 16px;
+	border: 1px solid white;
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+	margin-top:20px;
+	
+}
+
+.input-group-prepend
+{
+	font-size: 16px;
+	width:50px;
+	justify-content:center;
+	background-color: #858585;
+	border: 1px solid white;
+	align-items: center;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+	margin-top:20px;
+}
+.input-group-append
+{
+	font-size: 16px;
+	color:red;
+	margin-top:15px;
+	margin-left:15px;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+	display: block;
+	width:500px;
+	
+}
+
+
+#wplata, #todayIncome, #todayExpense, #loginName, #passwordInput, #registerName, #registerPassword, #registerPasswordRepeat, #registerEmail 
+{
+   border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+}
+
+
+
+.incomeCategory
+{
+	background-color: #858585;
+	color:  #ededed;
+	font-size: 16px;
+	padding:10px;
+	border: 1px solid white;
+	border-radius:5px;
+	margin-top: 40px !important;
+
+}
+
+.form-check
+{
+	padding-left:70px;
+}
+
+.form-check-input
+{
+	margin-top:5px !important;
+}
+
+form label span{
+  color: #262626;
+  font-weight:700;
+}
+
+.loginToRegister
+{
+	width:300px;
+	margin-left:auto;
+	margin-right:auto;
+	background-color:#91281f;
+	font-size: 12px;
+	color:white;
+	padding: 5px 3px;
+	margin-top: 25px;
+	border: none;
+	border-radius:5px;
+	cursor:pointer;
+	letter-spacing:2px;
+	outline:none;
+	text-align: center;
+}
+
+a.registerLink 
+{
+	text-decoration: none;
+}
+
+.loginToRegister:focus
+{
+	-webkit-box-shadow: 0px 0px 15px 5px rgba(0,0,0,1);
+	-moz-box-shadow: 0px 0px 15px 5px rgba(0,0,0,1);
+	box-shadow: 0px 0px 15px 5px rgba(0,0,0,1);
+}
+
+
+/*input[type=button]:hover*/
+.loginToRegister:hover
+{
+	background-color:white;
+	color:#8f423c;
+	font-weight: 700;
+	-webkit-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	transform: scale(1.2);
+}
+
+.info
+{
+	margin-left:auto;
+	margin-right:auto;
+	text-align: center;
+	padding:15px;
+	color: white;
+	font-size: medium;
+}
+
+/*main menu*/
+
+.image
+{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:20px;
+}
+
+
+/* logout */
+
+#container
+{
+	padding:0;
+	margin-left: auto;
+	margin-right: auto;
+	text-align:center;
+}
+
+
+.container
+{
+	
+}
+
+
+/* add income */
+
+.addForm
+{
+	background-color:#000000;
+	color:white;
+	width: 350px;
+	padding:50px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+}
+
+textarea { resize: none; }
+
+
+
+.blockquote
+{
+	line-height:120%;
+	 border: none !important;
+}
+
+.opis img
+{
+	width: 30%;
+	height: auto;
+	
+}
+
+.opis
+{
+	text-align:center;
+	color: white;
+}
+
+.tilelink 
+{
+	font-family: 'Open Sans', sans-serif;
+	color: #9ACD32;
+	text-decoration: none;
+	text-align:center;
+	font-size:large;
+}
+.tile
+{
+	
+	text-align:center;
+	font-size:large;
+	background-color:#9ACD32;
+	font-family: 'Open Sans', sans-serif;
+}
+.tile:hover
+{
+	opacity:0.5 !important;
+}
+.icon-login:hover > span {color: red}
+
+
+a.tilelink 
+{
+		
+	color: #9ACD32;
+	text-decoration: none;
+	text-align:center;
+	font-size:large;
+		
+}
+
+a.tilelink:hover
+{
+	color: red;	
+		
+}
+
+@media (max-width:767px)
+{
+
+	a.tilelink 
+	{
+		
+		color: #9ACD32;
+		text-decoration: none;
+		text-align:center;
+		
+	}
+	.tilelink
+	{
+		text-align:center;
+		font-size:16px;
+		text-decoration: none;
+		
+		
+	}
+	
+	.list-group
+	{
+		text-align:center;
+	}
+	
+	
+}
+
+.naglowek
+{
+	background-color:#9ACD32 !important;
+}
+
+
+.logo
+{
+	margin-left:10px;
+	color:white;
+	font-size:10px;
+	
+}
+
+.bg-menu
+{
+	background-color: #8f423c;
+}
+
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #A9A9A9;
+            opacity: 1; /* Firefox */
+}
+
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: #A9A9A9;
+}
+
+.form-control::-ms-input-placeholder { /* Microsoft Edge */
+            color: #A9A9A9;
+ }
+ 
+ 
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {   
+  border-color: rgba(229, 103, 23, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+  outline: 0 none;
+  background-color:#9ACD32;
+}
+
+textarea:focus, input:focus, .uneditable-input:focus {   
+    border-color: rgba(229, 103, 23, 0.8) !important;
+    box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 8px rgba(229, 103, 23, 0.6) !important;
+    outline: 0 none !important;
+}
+
+footer {
+
+   color: white;
+   text-align: center;
+}
+
+wrapper {
+   min-height:100vh;
+}
+
+.flex-fill {
+   flex:1 1 auto;
+}
+
+.dropdown-menu
+{
+	background:#9ACD32;
+}
+
+#tableShowBalance > tbody > tr > td
+{
+	text-align:center;
+}
+
+.pie
+{
+     width: 100%;
+   text-align:center;
+}
+#cvs
+{
+  display: inline;
+}
+
+
+#toggleChangeName, #toggleNameApplyChanges, #toggleChangeEmail, #toggleEmailApplyChanges, #toggleChangePassword, #toggleNewPassword,#toggleRepeatPassword,#togglePasswordApplyChanges {
+  display: none;
+
+}
+
+
+.settings 
+{
+	margin-left: auto;
+	margin-right: auto;	
+	align-items: center;
+	justify-content: center;
+	margin-top:20px;
+
+}
+
+
+.changebutton
+{
+	width:275px !important;
+	
+}
+
+.buttonsSettings
+{
+	border-radius:5px;
+	
+}
+
+#toggleNewPassword input,#toggleRepeatPassword input
+{
+	margin-top:0px;
+}
+
+#toggleNewPassword > .input-group > .input-group-prepend, #toggleRepeatPassword > .input-group > .input-group-prepend
+{
+	margin-top:0px !important;
+}
+
+#periodOfTime
+{
+	background:#9ACD32;
+}
+
+
+.error
+{
+	font-size : 16px;
+	color: red;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+/*.table
+{
+	background-color:#9ACD32;
+}
+
+#tableExpenses
+{
+	background-color:#c40000 !important;
+}
+*/
+#chartContainer
+{
+	
+	height: 370px; 
+	width: 100%;
+	
+}
+
+.navbar
+{
+	font-size: large;
+}
+
+.lead
+{
+	font-size: 20px;
 }
