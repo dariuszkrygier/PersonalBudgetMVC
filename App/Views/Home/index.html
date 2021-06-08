@@ -18,9 +18,10 @@
 </header>		
 
     {% if current_user %}
-        Hello {{ current_user.name }}.
+		<p class=" display-4 my-5 text-light text-center">
+        Cześć {{ current_user.name }}.</p>
 
-        <a href="/logout">Wyloguj</a>
+        
     {% else %}
 	
 	

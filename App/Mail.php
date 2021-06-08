@@ -38,7 +38,7 @@ class Mail
 		$mail->IsSMTP();
 		$mail->Mailer = "smtp";
 
-		$mail->SMTPDebug  = 1;  
+		$mail->SMTPDebug  = 0;  
 		$mail->SMTPAuth   = TRUE;
 		$mail->SMTPSecure = "tls";
 		$mail->Port       = 587;
@@ -58,9 +58,10 @@ class Mail
 if(!$mail->Send()) {
   echo "Error while sending Email.";
   var_dump($mail);
-} else {
+} 
+/*else {
   echo "Email sent successfully";
-}
+}*/
 
 	}
     

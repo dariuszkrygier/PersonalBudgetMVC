@@ -36,10 +36,9 @@ h3
 
 #logowanie
 {
-	padding:40px;
+	padding:15px;
 	margin-left: auto;
-	margin-right: auto;
-	margin-top: 10px;	
+	margin-right: auto;	
 	align-items: center;
 	justify-content: center;
 }
@@ -80,7 +79,7 @@ h3
 
 .input-group-prepend
 {
-	font-size: 16px;
+	font-size: 20px;
 	width:50px;
 	justify-content:center;
 	background-color: #858585;
@@ -89,6 +88,7 @@ h3
 	border-top-left-radius:5px;
 	border-bottom-left-radius:5px;
 	margin-top:20px;
+	color:	#00ff40;
 }
 .input-group-append
 {
@@ -498,3 +498,38 @@ wrapper {
 {
 	font-size: 20px;
 }
+
+.loginLabel
+{
+	font-size: 16px;
+}
+.forgottenPassword
+{
+	font-size: medium;
+	padding-left:10px;
+}
+
+/* unvisited link */
+a.forgottenPassword:link {
+  color: red;
+  text-decoration: none;
+}
+
+/* visited link */
+a.forgottenPassword:visited {
+  color: red;
+  text-decoration: none;
+}
+
+/* mouse over link */
+a.forgottenPassword:hover {
+  color: white;
+  text-decoration: none;
+}
+
+/* selected link */
+a.forgottenPassword:active {
+  color: white;
+  text-decoration: none;
+}
+
