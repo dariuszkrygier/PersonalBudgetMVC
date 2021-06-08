@@ -1,108 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/styles.css" />
-	
-	 <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
-	 <link rel="stylesheet" href="/css/bootstrap.min.css">
+{% extends 'base.html' %}
 
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
-	<script src="https://kit.fontawesome.com/9855606672.js" crossorigin="anonymous"></script>
-</head>
-<body>
+{% block title %}Items{% endblock %}
 
+{% block body %}
 
-	
-		<span class = "logo text-uppercase my-4">
-			
-					<i class="fa fa-coins "></i> Budżet personalny
-					
-		</span>
-		
-			<h1 class="text-uppercase text-light naglowek"> </h1>
-			
-		<nav class="navbar navbar-dark bg-dark navbar-expand-lg justify-content-center text-light ">
-			 
-		
-					
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Przełącznik nawigacji">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-		
-			<div class="collapse navbar-collapse justify-content-center " id="mainmenu">
-			
-				<ul class="navbar-nav">
-				
-					<li class="nav-item px-3">
-						<a class="nav-link" href="/" id="home"><i class="fas fa-home"></i> Start </a>
-					</li>
-					{% if current_user %}
-					<li class="nav-item px-3">
-						<a class="nav-link " href="addIncome.php"><i class="fas fa-hand-holding-usd"></i> Przychody </a>
-					</li>
-					
-					<li class="nav-item px-3">
-						<a class="nav-link" href="addExpense.php"><i class="fas fa-shopping-cart"></i> Wydatki </a>
-					</li>
-					
-					<li class="nav-item px-3">
-						<a class="nav-link" href="showBalance.php"><i class="fas fa-balance-scale-right"></i> Bilans </a>
-					</li>
-					
-					<li class="nav-item px-3">
-						<a class="nav-link" href="settings.php"><i class="fas fa-cogs"></i> Ustawienia </a>
-					</li>
-					
-					<li class="nav-item px-3">
-						<a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> Wyloguj </a>
-					</li>
-					{% endif %}
-				</ul>
-			
-			</div>
-		
-		</nav>	
-		
+    <h1>Przychody</h1>
 
+    <p>Dodaj przychód.</p>
 
-
-
-	
-
-        {% for message in flash_messages %}
-            <div class="alert alert-{{ message.type }}">
-                {{ message.body }}
-            </div>
-        {% endfor %}
-
-        {% block body %}
-        {% endblock %}
-
-
-
-
-   
-	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-		 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	
-	<script src="/js/bootstrap.min.js"></script>
-
-    {% block footer %}
-	<footer class="mt-auto">
-	
-		
-		<div class=" info">
-		
-		Wszelkie prawa zastrzeżone &copy; 2021 Oszczędzaj pieniądze, nie bierz kredytów!
-		
-		</div>
-	
-	</footer>
-    {% endblock %}
-</body>
-</html>
+{% endblock %}
