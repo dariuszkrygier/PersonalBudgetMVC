@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Dodaj przychód{% endblock %}
+{% block footer %}
+    <script src="/js/hideShowPassword.min.js"></script>
+    <script src="/js/app.js"></script>
+
+    <script>
+     <script>
+		$(document).ready(function()
+		{
+			$('#income').validate({
+                rules: {
+                    amount: {
+						required: true,
+						min: 0
+					},
+                    dates: {
+                        required: true,
+                        date: true
+                    },
+                    comment: {
+						rangelength: [0, 100]
+                    }
+                },
+                messages: {
+                    amount: "Kwota musi być liczbą dodatnią",
+					dates: "Wprowadź poprawną datę",
+					comment: "Komentarz może posiadać max 100 znaków"
+                }
+            });
+        });
+	</script>
+    </script>
+
+{% endblock %}
+{% block body %}
+
+
+
+    <h1 class="naglowek">Dodaj przychód</h1>
+
+    <div class="container">
+	{% if income.errors is not empty %}
+        <p class = "text-light">Błędy:</p>
+        <ul>
+            {% for error in income.errors %}
+                <li class = "text-light">{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form id="income"action="/add-income/create" method="post">
+		<div class="row my-1" id="logowanie">
+			<div class="form-group w-50">
+				<label class = "text-light loginLabel h3" for="inputEmail">Kwota </label>
+				<div class="input-group">
+						
+						<div class="input-group-prepend">
+							<i class="fas fa-coins"></i> 
+						</div>
+						<input  type="number" step="0.01" id="amount" name="amount" placeholder="Podaj kwotę" autofocus value="{{ amount }}" class="form-control" />
+				</div>
+			</div>
+		</div>
+		<div class="row my-1" id="logowanie">
+			<div class="form-group w-50">
+				<label class = "text-light loginLabel h3" for="inputPassword">Data </label>
+				<div class="input-group">
+						
+					<div class="input-group-prepend">
+						<i class="fas fa-calendar-week"></i> 
+					</div>
+						<input  type="date" id="theDate" name="dates"  class="form-control" />
+				</div>	
+			</div>
+		</div>
+		<div class="row my-1" id="logowanie">
+			  <div class="form-group w-50 " aria-label="Kategoria" name="groupName">
+			      <label class = "text-light loginLabel h3" for="sel1"><i class="fas fa-tasks" aria-hidden="true"></i> Kategoria</label>	
+            				
+				
+				  {% if categories is not empty %}
+                        {% for category in categories %}
+                            <div class ="form-check">
+							<label class="form-check-label text-light">
+							<input class="form-check-input" type="radio" name="category" value="{{ category.name }}"> {{ category.name }}
+							</label>
+							</div>
+                        {% endfor %}
+                    {% else %}
+                        <input value="">Brak kategorii przychodów
+                    {% endif %}
+                  
+                     
+                    
+				
+            </div>
+			
+		</div>
+			
+            <div class="row my-1" id="logowanie">
+            <div class="form-group">
+                <h3>
+                    <label class="col-12 text-center text-light" for="comment" id="commentLabel">Komentarz (opcjonalnie)</label>
+                </h3>
+                <textarea class="form-control comment" id="comment" name="comment" placeholder="Napisz swój komentarz :)" onfocus="this.placeholder=''" onblur="this.placeholder='Napisz swój komentarz :)'" rows="4" maxlength="100" aria-label="Komentarz (opcjonalnie)" aria-describedby="commentLabel"></textarea>
+            </div>
+		</div>
+	<div class="row my-2 w-25" id="logowanie">
+       <input type="submit" class="btn btn-success col-sm" form="income" value="Dodaj przychód"/>
+        
+	</div>
+    </form>
+</div>
+
+{% endblock %}
