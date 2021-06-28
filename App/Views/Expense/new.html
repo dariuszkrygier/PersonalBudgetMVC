@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Dodaj przychód{% endblock %}
+{% block title %}Dodaj wydatek{% endblock %}
 {% block footer %}
     <script src="/js/hideShowPassword.min.js"></script>
     <script src="/js/app.js"></script>
@@ -9,7 +9,7 @@
      <script>
 		$(document).ready(function()
 		{
-			$('#income').validate({
+			$('#expense').validate({
                 rules: {
                     amount: {
 						required: true,
@@ -38,18 +38,18 @@
 
 
 
-    <h1 class="naglowek">Dodaj przychód</h1>
+    <h1 class="naglowek">Dodaj wydatek</h1>
 
     <div class="container">
-	{% if income.errors is not empty %}
+	{% if expense.errors is not empty %}
         <p class = "text-light">Błędy:</p>
         <ul>
-            {% for error in income.errors %}
+            {% for error in expense.errors %}
                 <li class = "text-light">{{ error }}</li>
             {% endfor %}
         </ul>
     {% endif %}
-    <form id="income"action="/add-income/create" method="post">
+    <form id="expense"action="/add-expense/create" method="post">
 		<div class="row my-1" id="logowanie">
 			<div class="form-group w-50">
 				<label class = "text-light loginLabel h3" for="amount">Kwota </label>
@@ -74,24 +74,49 @@
 				</div>	
 			</div>
 		</div>
+		
 		<div class="row my-1" id="logowanie">
-			  <div class="form-group w-50 " aria-label="Kategoria" name="groupName">
-			      <label class = "text-light loginLabel h3" for="category"><i class="fas fa-tasks" aria-hidden="true"></i> Kategoria</label>	
-            				
+			<div class="form-group w-50" aria-label="Metoda płatności">
+				<label class = "text-light loginLabel h3" for="payment"><i class="fas fa-cash-register"></i> Metoda płatności </label>
 				
-				  {% if categories is not empty %}
-                        {% for category in categories %}
+						
+				
+						 {% if methods is not empty %}
+                        {% for method in methods %}
                             <div class ="form-check">
 							<label class="form-check-label text-light">
-							<input class="form-check-input" type="radio" name="category" value="{{ category.name }}"> {{ category.name }}
+							<input class="form-check-input" type="radio" name="payment" value="{{ method.name }}"> {{ method.name }}
 							</label>
 							</div>
                         {% endfor %}
                     {% else %}
-                        <input value="">Brak kategorii przychodów
+                        <input value="">Brak metod płatności
                     {% endif %}
+				
+			</div>
+		</div>
+		<div class="row my-1" id="logowanie">
+			  <div class="form-group w-50 " aria-label="Kategoria" name="groupName">
+			      <label class = "text-light loginLabel h3" for="category"><i class="fas fa-tasks" aria-hidden="true"></i> Kategoria</label>	
+            			 <select class="form-control" name="category" id="category">	
+				    {% if categories is not empty %}
+                    {% for category in categories %}
+				
+                        
+                       
+											
+						
+							 <option value="{{ category.name }}">{{ category.name }}</option>	
+                      
+							
+                   
+						
+                      {% endfor %}
+                {% else %}
+                    Brak kategorii wydatków
+                {% endif %} 
                   
-                     
+                   </select>  
                     
 				
             </div>
@@ -107,7 +132,7 @@
             </div>
 		</div>
 	<div class="row my-2 w-25" id="logowanie">
-       <input type="submit" class="btn btn-success col-sm" form="income" value="Dodaj przychód"/>
+       <input type="submit" class="btn btn-success col-sm" form="expense" value="Dodaj wydatek"/>
         
 	</div>
     </form>

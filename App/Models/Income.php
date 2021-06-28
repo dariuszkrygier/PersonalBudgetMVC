@@ -64,7 +64,8 @@ class Income extends \Core\Model
 		
 	
 		$user_id = $_SESSION['user_id'];
-		$income_category = $this->category;
+		$income_category = isset($this->category) ? $this->category: false;
+		
 		
 		$sql = 'SELECT id FROM incomes_category_assigned_to_users WHERE user_id = :user_id AND name = :name';
 
