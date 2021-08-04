@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+
+{% block title %}Bilans{% endblock %}
+
+{% block body_onload %}
+    onload="calculateBalance();"
+	
+{% endblock %}
+
+
+{% block body %}
+
+
+
+    <h1 class="naglowek">Bilans</h1>
+
+<div class="container">
+	<div class="row" id="logowanie">
+				
+					
+				
+			<div class="dropdown">
+				  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Wybierz przedział czasowy
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+					<button class="dropdown-item" type="button" onclick="setPeriod('currentMonth')">Bieżacy miesiąc</button>
+					<button class="dropdown-item" type="button" onclick="setPeriod('previousMonth')">Poprzedni miesiąc</button>
+					<button class="dropdown-item" type="button" onclick="setPeriod('currentYear') ">Bieżący rok</button>
+					<div class="dropdown-divider"></div>
+					<button id="customPeriodButton" class="dropdown-item" id="selectDateRange" data-toggle="modal" data-target="#dateRange">Przedział czasowy</button>
+				  </div>
+			</div>
+			
+			
+										 
+					<div class="modal fade" id="dateRange" tabindex="-1" role="dialog" aria-labelledby="dateRange" aria-hidden="true">
+					  <div class="modal-dialog" role="document">
+						<div class="modal-content">
+						  <div class="modal-header">
+						  {% if balance.errors is not empty %}
+        <p class = "text-light">Błędy:</p>
+        <ul>
+            {% for error in balancece.errors %}
+                <li >{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+							<h5 class="modal-title" >Wybierz przedział czasowy:</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							  <span aria-hidden="true">&times;</span>
+							</button>
+						  </div>
+						  
+						  <div class="modal-body">
+							
+							<div class="container">
+									
+									<div class="row" id="logowanie">
+							
+										<form id="customDate" method="post" action="showBalance(dateFrom, dateTill)" class="main-form" novalidate style="width:350px; margin-auto">	
+														
+											
+											<div class="form-group">	
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<i class="fas fa-calendar-week"></i> 
+													</div>
+													<input type="date" name="dateFrom" id="dateFrom" class="form-control" required>
+													<div class="invalid-feedback">Podaj datę!</div>
+												
+												</div>
+											</div>
+											
+											<div class="form-group">	
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<i class="fas fa-calendar-week"></i> 
+													</div>
+													<input type="date" name="dateTill" id="dateTill" class="form-control" required>
+													<div class="invalid-feedback">Podaj datę!</div>
+													
+												</div>
+											</div>
+										</form>
+									</div>
+							</div>
+											
+							
+										  </div>
+											<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+													<button type="submit" class="btn btn-success" form="customDate"  data-dismiss="modal" >Wybierz</button>
+												</div>
+						</div>
+						</div>
+					</div>
+				
+						
+	</div>
+	
+	  <div class="row  id="logowanie">
+            <div class="col-md-6 col-12 text-center">
+                <div class="shadow-lg mb-5 bg-white rounded">
+                    <div class="card-header bg-secondary card-topic text-center text-light font-weight-bold"> Przychody </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead class="bg-success text-light">
+                                <tr>
+                                    <th scope="col" class="text-left">Kategoria</th>
+                                    <th scope="col" class="text-right">Kwota [zł]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for income in incomes %}
+                                <tr>
+                                    <th scope="row" class="text-left">{{ income.Category }}</th>
+                                    <td class="text-right">{{ income.Sum_of_amounts }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-success">
+                                    <th scope="row" class="text-left">Razem:</th>
+                                    <td id="sum-of-incomes" class="text-right font-weight-bold text-warning bg-dark h4">
+                                        {{ totalIncomesAmount }}
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-12 text-center">
+                <div class="shadow-lg mb-5 bg-white rounded">
+                    <div class="card-header bg-secondary card-topic text-center text-light font-weight-bold"> Wydatki </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead class="bg-danger text-light">
+                                <tr>
+                                    <th scope="col" class="text-left">Kategoria</th>
+                                    <th scope="col" class="text-right">Kwota [zł]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for expense in expenses %}
+                                <tr>
+                                    <th scope="row" class="text-left">{{ expense.Category }}</th>
+                                    <td class="text-right">{{ expense.Sum_of_amounts }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-success">
+                                    <th scope="row" class="text-left">Razem:</th>
+                                    <td id="sum-of-expenses" class="text-right font-weight-bold text-warning bg-dark h4">
+                                    {{ totalExpensesAmount }}
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                
+				{% if totalIncomesAmount - totalExpensesAmount >= 0 %}
+			<div class="bg-success py-2 px-4">
+				<h5 class="font-weight-bold">Twój bilans: {{ totalIncomesAmount - totalExpensesAmount }} zł</h5>
+				<h5 class="font-weight-bold">Gratulacje. Świetnie zarządzasz finansami!</h5>
+			</div>
+		{% else %}
+			<div class="bg-danger py-2 px-4">
+				<h5 class="font-weight-bold">Twój bilans: {{ totalIncomesAmount - totalExpensesAmount }} zł</h5>
+				<h5 class="font-weight-bold">Uważaj, wpadasz w długi!</h5>
+			</div>
+		{% endif %}
+				
+            </div>
+        </div>
+		
+        <div class="row">
+            <div class="mt-3" id="piechart"></div>
+        </div>
+    </div>
+	
+	
+		
+		<script src="/js/budget.js" defer></script>				
+ 
+{% endblock %}
+
+
+{% block footer %}
+
+
+ 
+{% endblock %}

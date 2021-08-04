@@ -187,7 +187,40 @@ function formatDate(date) {
 		*/
 
     
+function showBalance(dateFrom, dateTill) {
+    location.href = "balance-custom-period";
+}
 
 
+function setPeriod(period) {
+    switch (period) {
+        case 'previousMonth':
+            location.href = "balance-previous-month";
+            break;
+        case 'currentYear':
+            location.href = "balance-current-year";
+            break;
+        default:
+            location.href = "balance-current-month";
+            break;
+    }
+}
+
+function calculateBalance() {
+    var sumIncomes = document.getElementById("sum-of-incomes").innerText.replace(',', '.');
+    var sumExpenses = document.getElementById("sum-of-expenses").innerText.replace(',', '.');
+    var result = 'Twój bilans: <span class="h1"> ' + (sumIncomes - sumExpenses).toFixed(2).replace('.', ',') + " zł </span>";
+    if (sumIncomes - sumExpenses >= 0) {
+        balance.style.color = "green";
+        document.getElementById("balance").innerHTML = result;
+        document.getElementById("balanceComment").innerHTML = 'Gratulacje. Świetnie zarządzasz finansami!';
+    }
+    else if (sumIncomes - sumExpenses < 0) {
+        balance.style.color = "red";
+        document.getElementById("balance").innerHTML = result;
+        document.getElementById("balanceComment").innerHTML = 'Uważaj, wpadasz w długi!';
+    }
+
+}
 
 	

@@ -39,6 +39,11 @@ $router->add('password/reset/{token:[\da-f]+}', ['controller' => 'Password', 'ac
 $router->add('signup/activate/{token:[\da-f]+}', ['controller' => 'Signup', 'action' => 'activate']);
 $router->add('add-income', ['controller' => 'AddIncome', 'action' => 'new']);
 $router->add('add-expense', ['controller' => 'AddExpense', 'action' => 'new']);
+$router->add('balance', ['controller' => 'ShowBalance', 'action' => 'showCurrentMonth']);
+$router->add('balance-current-month', ['controller' => 'ShowBalance', 'action' => 'showCurrentMonth']);
+$router->add('balance-current-year', ['controller' => 'ShowBalance', 'action' => 'showCurrentYear']);
+$router->add('balance-previous-month', ['controller' => 'ShowBalance', 'action' => 'showPreviousMonth']);
+$router->add('balance-custom-period', ['controller' => 'ShowBalance', 'action' => 'showCustomPeriod']);
 $router->add('{controller}/{action}');
 
 $router->dispatch($_SERVER['QUERY_STRING']);
