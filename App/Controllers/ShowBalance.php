@@ -35,14 +35,14 @@ class ShowBalance extends Authenticated
 
     public function showCustomPeriodAction()
     {
-		
-		$balance = new Balance($_POST);
-			if($this->errors[]=0)
-			{
+
+			
+				 $startDate = $_POST['dateFrom'];
+				 $endDate = $_POST['dateTill'];
+				
 				 $this->showTemplate($startDate, $endDate);
-			}
-			else return false;
-		
+	
+	
 			
     }
 

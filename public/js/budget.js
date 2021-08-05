@@ -223,6 +223,32 @@ function calculateBalance() {
 
 }
 
+function updateDateFrom(date){
+    document.getElementById("dateFrom").value = date;
+}
 
+function updateDateTill(date){
+    document.getElementById("dateTill").value = date;
+}
+
+function validateModal() {
+// Storing Field Values In Variables
+var dateFrom = document.getElementById("dateFrom").value;
+var dateTill = document.getElementById("dateTill").value;
+
+
+if (dateFrom > dateTill) {
+
+alert("Data początkowa musi być wcześniejasza lub taka sama jak data końcowa!");
+
+
+}
+else {
+$('#submitModal').click(function(){
+    $('#customDate').submit();
+});
+
+}
+}
 
 	

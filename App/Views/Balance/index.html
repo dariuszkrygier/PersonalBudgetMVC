@@ -97,7 +97,7 @@ window.onload = drawChart();
 									
 									<div class="row" id="logowanie">
 							
-										<form id="customDate" method="post" action="showBalance(dateFrom, dateTill)" class="main-form" novalidate style="width:350px; margin-auto">	
+										<form id="customDate" method="post" action="/balance-custom-period" class="main-form"  style="width:350px; margin-auto">	
 														
 											
 											<div class="form-group">	
@@ -105,7 +105,7 @@ window.onload = drawChart();
 													<div class="input-group-prepend">
 														<i class="fas fa-calendar-week"></i> 
 													</div>
-													<input type="date" name="dateFrom" id="dateFrom" class="form-control" required>
+													<input type="date" name="dateFrom" id="dateFrom" class="form-control" onchange = "updateDateFrom(this.value)" required>
 													<div class="invalid-feedback">Podaj datę!</div>
 												
 												</div>
@@ -116,12 +116,12 @@ window.onload = drawChart();
 													<div class="input-group-prepend">
 														<i class="fas fa-calendar-week"></i> 
 													</div>
-													<input type="date" name="dateTill" id="dateTill" class="form-control" required>
+													<input type="date" name="dateTill" id="dateTill" class="form-control" onchange = "updateDateTill(this.value)" required>
 													<div class="invalid-feedback">Podaj datę!</div>
 													
 												</div>
 											</div>
-										</form>
+										
 									</div>
 							</div>
 											
@@ -129,8 +129,9 @@ window.onload = drawChart();
 										  </div>
 											<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
-													<button type="submit" class="btn btn-success" form="customDate"  data-dismiss="modal" >Wybierz</button>
+													<button id="submitModal" type="button" class="btn btn-success" form="customDate" onclick = "validateModal()" >Wybierz</button>
 												</div>
+												</form>
 						</div>
 						</div>
 					</div>
