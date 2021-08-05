@@ -19,14 +19,15 @@ class ShowBalance extends Authenticated
 
   
 
-     private function showTemplate($startDate, $endDate)
+     private function showTemplate($startDate, $endDate,)
     {
      
         $a['incomes'] = Balance::getIncomes($startDate, $endDate);
         $a['expenses'] = Balance::getExpenses($startDate, $endDate);
         $a['totalIncomesAmount'] = $this->calcSum($a['incomes']);
         $a['totalExpensesAmount'] = $this->calcSum($a['expenses']);;
-
+		$a['periodBalanceMsg'] = "Bilans za okres od " . $startDate . " do " . $endDate;
+		$a['chartElements'] = $this->getChartElements($a['expenses']);
         
 
         View::renderTemplate('Balance/index.html', $a);
@@ -41,14 +42,16 @@ class ShowBalance extends Authenticated
 				 $this->showTemplate($startDate, $endDate);
 			}
 			else return false;
+		
 			
     }
 
     public function showPreviousMonthAction()
     {
         
-       $startDate = date('Y-m-01',strtotime('previousMonthFirstDay'));
-      $endDate = date('Y-m-t',strtotime('previousMonthLastDay'));
+       $startDate = date('Y-m-01',strtotime('last month'));
+      $endDate = date('Y-m-t',strtotime('last month'));
+	
 
         $this->showTemplate($startDate, $endDate);
     }
