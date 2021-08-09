@@ -19,7 +19,7 @@ class ShowBalance extends Authenticated
 
   
 
-     private function showTemplate($startDate, $endDate,)
+     private function showTemplate($startDate, $endDate)
     {
      
         $a['incomes'] = Balance::getIncomes($startDate, $endDate);

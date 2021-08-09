@@ -44,7 +44,7 @@ class Mail
 		$mail->Port       = 587;
 		$mail->Host       = "smtp.gmail.com";
 		$mail->Username   = "dariusz.krygier.programista@gmail.com";
-		$mail->Password   = "China2016";
+		$mail->Password   = "Radek2019#";
 			
 		$mail->IsHTML(true);
 	$mail->AddAddress($to);
