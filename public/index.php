@@ -44,6 +44,7 @@ $router->add('balance-current-month', ['controller' => 'ShowBalance', 'action' =
 $router->add('balance-current-year', ['controller' => 'ShowBalance', 'action' => 'showCurrentYear']);
 $router->add('balance-previous-month', ['controller' => 'ShowBalance', 'action' => 'showPreviousMonth']);
 $router->add('balance-custom-period', ['controller' => 'ShowBalance', 'action' => 'showCustomPeriod']);
+$router->add('settings', ['controller' => 'Settings', 'action' => 'index']);
 $router->add('{controller}/{action}');
 
 $router->dispatch($_SERVER['QUERY_STRING']);

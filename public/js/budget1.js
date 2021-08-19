@@ -43,23 +43,17 @@ $(document).ready(function() {
 $(document).ready(function(){
   $("#flip").click(function(){
     $("#toggleChangeName").slideToggle("slow");
-	$("#toggleNameApplyChanges").slideToggle("slow");
+	$("#toggleChangeEmail").slideToggle("slow");
+	$("#toggleChangePassword").slideToggle("slow");
+	$("#toggleDeleteAccount").slideToggle("slow");
+
   });
 });
 
 $(document).ready(function(){
-  $("#flip2").click(function(){
-    $("#toggleChangeEmail").slideToggle("slow");
-	$("#toggleEmailApplyChanges").slideToggle("slow");
-  });
-});
+  $("#flipEditIncomeCategories").click(function(){
+    $("#editIncomeCategories").slideToggle("slow");
 
-$(document).ready(function(){
-  $("#flip3").click(function(){
-    $("#toggleChangePassword").slideToggle("slow");
-	$("#toggleNewPassword").slideToggle("slow");
-	$("#toggleRepeatPassword").slideToggle("slow");
-	$("#togglePasswordApplyChanges").slideToggle("slow");
   });
 });
 

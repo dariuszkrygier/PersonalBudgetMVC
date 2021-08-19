@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+
+{% block title %}Ustawienia{% endblock %}
+
+{% block body %}
+
+
+    <h1 class="naglowek">Ustawienia</h1>
+
+<main>
+	
+		
+		
+	<article>
+		
+		<div class="container accordion my-5">
+			
+			<div id="accordion" >
+			
+				<div class="card">
+					<div class="card-header">
+						<a class="card-link text-dark font-weight-bold" data-toggle="collapse" href="#collapseOne">
+						  <i class="far fa-address-card"></i> Profil użytkownika
+						</a>
+					</div>
+					<div id="collapseOne" class="collapse" data-parent="#accordion">
+						<div class="card-body">
+							<button type="button"  class="btn btn-success changebutton">Zmień imię <i class="fa fa-user"></i>  </button>
+						</div>	
+						<div class="card-body">
+						
+							<button type="button" class="btn btn-success changebutton">Zmień email <i class="fa fa-envelope"></i> </button>
+						</div>
+						<div class="card-body">
+							<button type="button"  class="btn btn-success changebutton">Zmień hasło <i class="fa fa-key"></i> </button>
+						</div>
+						<div class="card-body">
+							<button type="button"  class="btn btn-warning changebutton">Usuń konto <i class="fas fa-user-slash"></i> </button>
+						</div>
+					</div>
+				  </div>
+				
+				<div class="card">
+					<div class="card-header">
+						<a class="collapsed card-link text-dark font-weight-bold " data-toggle="collapse" href="#collapseTwo">
+							<i class="fas fa-money-bill-wave"></i> Edytuj przychody
+						</a>
+					</div>
+					<div id="collapseTwo" class="collapse" data-parent="#accordion">
+						<div class="card-body text-left my-1 text-light">
+							{% if incomeCategories is not empty %}
+						  {% for incomeCategory in incomeCategories %}
+							<div class="row border-bottom border-dotted insideAccordion" id="income{{ incomeCategory.id }}">
+							  <div class="col">
+								{{ incomeCategory.name }}
+							
+							  </div>
+							  <div class="col my-1 ">
+							   <button class="btn btn-sm btn-danger pull-right mx-1" >
+								  <i class="far fa-trash-alt"></i>
+								</button>
+									<button class="btn btn-sm btn-secondary pull-right" >
+								  <i class="fas fa-wrench"></i>
+								</button>
+							
+							
+							</div>
+							</div>  
+						  {% endfor %}
+							{% else %}
+							  <p class="text-light"> Brak kategorii przychodów </p>
+							{% endif %}
+						</div>
+						<div class="row d-flex justify-content-center">
+						  <button class="btn btn-secondary">Doda nową kategorię</button>
+						</div>
+					</div>
+				</div>
+				
+				<div class="card">
+				  <div class="card-header">
+					<a class="collapsed card-link text-dark font-weight-bold" data-toggle="collapse" href="#collapseThree">
+					  <i class="fas fa-cart-arrow-down"></i> Edytuj wydatki
+					</a>
+				  </div>
+				  <div id="collapseThree" class="collapse" data-parent="#accordion">
+					<div class="card-body text-left my-1 text-light">
+					  
+					  	{% if expenseCategories is not empty %}
+                      {% for expenseCategory in expenseCategories %}
+                        <div class="row border-bottom insideAccordion" id="expense{{ expenseCategory.id }}">
+                          <div class="col">
+                            {{ expenseCategory.name }}
+						
+                          </div>
+						  <div class="col my-1 ">
+						   <button class="btn btn-sm btn-danger pull-right mx-1" >
+                              <i class="far fa-trash-alt"></i>
+                            </button>
+						  		<button class="btn btn-sm btn-secondary pull-right" >
+                              <i class="fas fa-wrench"></i>
+                            </button>
+						
+						
+						</div>
+                        </div>  
+                      {% endfor %}
+                    {% else %}
+                      <p class="text-light"> Brak kategorii wydatków</p>
+                    {% endif %} 
+					</div>
+					<div class="row d-flex justify-content-center">
+                      <button class="btn btn-secondary">Doda nową kategorię</button>
+                    </div>
+				  </div>
+				</div>
+				
+				<div class="card">
+				  <div class="card-header">
+					<a class="collapsed card-link text-dark font-weight-bold" data-toggle="collapse" href="#collapseFour">
+					  <i class="fas fa-credit-card"></i> Edytuj metody płatności
+					</a>
+				  </div>
+				  <div id="collapseFour" class="collapse" data-parent="#accordion">
+					<div class="card-body text-left text-light my-1">
+					  
+					  	{% if paymentCategories is not empty %}
+                      {% for paymentCategory in paymentCategories %}
+                        <div class="row border-bottom insideAccordion" id="payment{{ paymentCategory.id }}">
+                          <div class="col">
+                            {{ paymentCategory.name }}
+						
+                          </div>
+						  <div class="col my-1 ">
+						   <button class="btn btn-sm btn-danger pull-right mx-1" >
+                              <i class="far fa-trash-alt"></i>
+                            </button>
+						  		<button class="btn btn-sm btn-secondary pull-right" >
+                              <i class="fas fa-wrench"></i>
+                            </button>
+						
+						
+						</div>
+                        </div>  
+                      {% endfor %}
+						{% else %}
+						  <p class="text-light"> Brak metod płatności </p>
+						{% endif %}
+					  
+					</div>
+					<div class="row d-flex justify-content-center">
+						  <button class="btn btn-secondary">Doda metodę płatności</button>
+						</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+		
+		<!--
+		<div class="container">
+		
+		
+		
+			<div class="row settings" >
+					<h5 class="text-light">Użytkownik: {{ user.name }}</h3>
+			</div>		
+					
+			<div class="row settings" >	
+					<h5 class="text-light">Email: {{ user.email }}</h3>
+			</div>
+				
+			<div class="row settings" >
+			
+				<div class="btn-group-vertical buttonsSettings">
+				
+					<button type="button" id="flip" class="btn btn-light changebutton">Profil użytkownika</button>
+			
+					<button type="button" id="toggleChangeName" class="btn btn-success changebutton">Zmień imię <i class="fa fa-user"></i>  </button>
+					
+					<button type="button" id="toggleChangeEmail" class="btn btn-success changebutton">Zmień email <i class="fa fa-envelope"></i> </button>
+					
+					<button type="button" id="toggleChangePassword" class="btn btn-success changebutton">Zmień hasło <i class="fa fa-key"></i> </button>
+					
+					<button type="button" id="toggleDeleteAccount" class="btn btn-warning changebutton">Usuń konto <i class="fas fa-user-slash"></i> </button>
+			
+				
+			
+				<button type="button" class="btn btn-dark changebutton collapsed"  data-toggle="collapse" data-target="#incomeCategoriesCollapse" aria-expanded="false" aria-controls="editIncomeCategories">Edytuj kategorie przychodów</button>
+			
+			 
+		    <div id="incomeCategoriesCollapse" class="accordion-collapse collapse my-2">
+                
+                <div class="accordion-body settings">
+				
+                  <div id="incomeCategoriesBody">
+                    {% if incomeCategories is not empty %}
+                      {% for incomeCategory in incomeCategories %}
+                        <div class="row" id="income{{ incomeCategory.id }}">
+                          <div class="col">
+                            <li class="list-group-item list-group-item-light d-flex list-inline-item" >{{ incomeCategory.name }}
+							
+							<button class="btn btn-sm btn-secondary" >
+                              <i class="fas fa-wrench"></i>
+                            </button>
+						
+						
+							 <button class="btn btn-sm btn-danger" >
+                              <i class="far fa-trash-alt"></i>
+                            </button>
+							</li>
+							
+                          </div>
+                       
+                        </div>  
+                      {% endfor %}
+                    {% else %}
+                      Brak kategorii przychodów
+                    {% endif %}
+                    
+                  </div>
+
+                 <button type="button" class="btn btn-info changebutton">Dodaj nową kategorię</button>
+
+                </div>
+              </div>
+			 
+			
+				<button type="button"  class="btn btn-light changebutton">Edytuj kategorie przychodów</button>
+			
+			
+				
+			
+				<button type="button"  class="btn btn-dark changebutton">Edytuj metody płatności</button>
+			</div>
+
+			
+		</div>
+		</div>
+-->
+	</article>
+		
+</main>
+		
+	
+ 
+                            
+                           
+{% endblock %}
