@@ -28,7 +28,8 @@ class AddExpense extends Authenticated
     {
           View::renderTemplate('Expense/new.html', [
             'categories' => Expense::getExpensesCategories(),
-			'methods' => Expense::getPaymentMethods()
+			'methods' => Expense::getPaymentMethods(),
+			
         ]);;
     }
 

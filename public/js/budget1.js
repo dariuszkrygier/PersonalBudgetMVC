@@ -245,4 +245,8 @@ $('#submitModal').click(function(){
 }
 }
 
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 	
