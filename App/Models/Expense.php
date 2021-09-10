@@ -59,6 +59,25 @@ class Expense extends \Core\Model
 		}
 	}
 	
+	public static function getAllFromCategories()
+	{
+		if (isset($_SESSION['user_id']))
+		{
+			$user_id = $_SESSION['user_id'];
+		
+			$sql = "SELECT * FROM expenses_category_assigned_to_users WHERE user_id = :user_id";
+
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+			
+			$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+			$stmt->execute();
+			
+			return $stmt->fetchAll();
+		}
+	}
+	
 	 public function getExpenseId()
     {
 		
@@ -88,7 +107,7 @@ class Expense extends \Core\Model
 	{
 		$this->validate();
 		
-		$expense_category_id = $this->getExpenseId();
+		$expense_category_id = filter_input(INPUT_POST, 'category');
 		$payment_method_id = $this->getPaymentMethodId();
 		
 		if (empty($this->errors)) 
@@ -216,7 +235,26 @@ class Expense extends \Core\Model
 		return $stmt->fetchColumn();
 	}
 	
+	public static function getLimitForCategory($category){
+		$sql = 'SELECT limitAmount FROM expenseCategories WHERE userId = :id AND categoryName = :category';
 
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $_SESSION['user_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':category', $category, PDO::PARAM_STR);
+
+        //$stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+		
+		return $stmt->fetch();
+	}
+	
+		public function ucfirstUtf8($str) {
+		$in =  mb_strtolower($str,"utf8");
+		$out = mb_strtoupper(mb_substr($in, 0, 1)).mb_substr($in, 1);
+		return $out;
+	}
 	
 
    

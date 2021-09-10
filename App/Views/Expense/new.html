@@ -100,13 +100,13 @@
 			      <label class = "text-light loginLabel h3" for="category"><i class="fas fa-tasks" aria-hidden="true"></i> Kategoria</label>	
             			 <select class="form-control" name="category" id="category">	
 				    {% if categories is not empty %}
-                    {% for category in categories %}
+                    {% for category in categories  %}
 				
                         
                        
 											
 						
-							 <option value="{{ category.name }}">{{ category.name }} 
+							 <option value="{{ category.id }}">{{ category.name }} {% if category.expenseLimit > 0 %} &nbsp &nbsp &nbsp Limit: {{ category.expenseLimit }} {% endif %}
                                 
 							
 								

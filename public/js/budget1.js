@@ -249,4 +249,17 @@ $('#submitModal').click(function(){
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
+
+$(document).ready(function(){
+	$("#limitExpense").load();
+});
+
+$(document).ready(function(){
+  $("#flip3").click(function(){
+    $("#toggleChangePassword").slideToggle("slow");
+	$("#toggleNewPassword").slideToggle("slow");
+	$("#toggleRepeatPassword").slideToggle("slow");
+	$("#togglePasswordApplyChanges").slideToggle("slow");
+  });
+});
 	

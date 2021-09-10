@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use PDO;
+use App\Token;
+use App\Auth;
+
 
 
 /**
@@ -78,9 +81,7 @@ class Income extends \Core\Model
 		
 		return $stmt->fetchColumn();
 		
-		
-    
-		
+			
     } 
     
 	
@@ -157,6 +158,7 @@ class Income extends \Core\Model
         }
 
     }
+	
 	
 
    

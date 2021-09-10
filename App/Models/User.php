@@ -514,10 +514,61 @@ class User extends \Core\Model
         return $stmt->fetchColumn();
     }
 	
-		/**
-     * Get the income category id from database
+	public function ucfirstUtf8($str) {
+		$in =  mb_strtolower($str,"utf8");
+		$out = mb_strtoupper(mb_substr($in, 0, 1)).mb_substr($in, 1);
+		return $out;
+	}
+	
+	
+	
+	public function updateName($data)
+    {
+        $this->name = User::ucfirstUtf8($data['name']);
+       
+
+        $this->validate();
+
+        if (empty($this->errors)) {
+
+            $sql = 'UPDATE users
+                    SET name = :name';
+                       
+
+            $sql .= "\nWHERE id = :id";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
+            $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+         
+            return $stmt->execute();
+        }
+
+        return false;
+    }
+	
+	/**
+     * Delete user account 
      *
-     * @return integer with id of income category
+     * @return boolean  True if account was deleted, false otherwise
      */
+    public static function deleteAccount()
+    {
+        $sql = 'DELETE FROM users
+               WHERE id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':id', $_SESSION['user_id'], PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+	
+	
+
 
 }

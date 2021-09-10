@@ -26,9 +26,11 @@ class AddExpense extends Authenticated
      */
     public function newAction()
     {
+		
           View::renderTemplate('Expense/new.html', [
-            'categories' => Expense::getExpensesCategories(),
+            'categories' => Expense::getAllFromCategories(),
 			'methods' => Expense::getPaymentMethods(),
+			
 			
         ]);;
     }
@@ -59,7 +61,7 @@ class AddExpense extends Authenticated
         else 
 		{
 			View::renderTemplate('Expense/new.html', [
-                'categories' => Expense::getExpensesCategories(),
+                'categories' => Expense::getAllFromCategories(),
 				'methods' => Expense::getPaymentMethods(),
 				'expense' => $expense,
                 

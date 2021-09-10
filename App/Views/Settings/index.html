@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}Ustawienia{% endblock %}
+{% block head %}
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+	<script src="/js/budget1.js"></script>
+{% endblock %}
+
 
 {% block body %}
 
@@ -14,6 +22,8 @@
 	<article>
 		
 		<div class="container accordion my-5">
+		
+		 
 			
 			<div id="accordion" >
 			
@@ -25,17 +35,45 @@
 					</div>
 					<div id="collapseOne" class="collapse" data-parent="#accordion">
 						<div class="card-body">
-							<button type="button"  class="btn btn-success changebutton"  data-toggle="modal" data-target="#">Zmień imię <i class="fa fa-user"></i>  </button>
+							<h5>Imię: {{ user.name }}</h5>
+							<h5>email: {{ user.email }}</h5>
+						</div>
+						 
+						<div class="card-body">
+							<button type="button"  class="btn btn-success changebutton"  data-toggle="modal" data-target="#changeNameModal">Zmień imię <i class="fa fa-user"></i>  </button>
 						</div>	
+						
 						<div class="card-body">
 						
-							<button type="button" class="btn btn-success changebutton"  data-toggle="modal" data-target="#">Zmień email <i class="fa fa-envelope"></i> </button>
+								<button class="btn btn-success changebutton" type="button" data-toggle="collapse" data-target="#collapsePassword" aria-expanded="false" aria-controls="collapsePassword">
+									Zmień hasło <i class="fa fa-key"></i> 
+								</button>
+			
+								<form action="/settings/updatePassword" method="post" id="formChangePassword">
+									<div class="form-group collapse" id="collapsePassword">
+									{% if profile.errors is not empty %}
+        <p class = "text-light">Błędy:</p>
+        <ul>
+            {% for error in profile.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+										
+											<div class="row" id="logowanie">
+											<label>Nowe hasło</label>
+												<input type="password" name="password" class="form-control " placeholder="Nowe hasło" onfocus="this.placeholder=''" onblur="this.placeholder='Nowe hasło'" >
+											</div>
+											<div class="row my-1" id="logowanie">
+												<button type="submit"  class="btn btn-success changebutton">Zatwierdź</button>	
+											</div>
+										
+									</div>
+								</form>
+
 						</div>
 						<div class="card-body">
-							<button type="button"  class="btn btn-success changebutton"  data-toggle="modal" data-target="#">Zmień hasło <i class="fa fa-key"></i> </button>
-						</div>
-						<div class="card-body">
-							<button type="button"  class="btn btn-warning changebutton" data-toggle="modal" data-target="#">Usuń konto <i class="fas fa-user-slash"></i> </button>
+							<button type="button"  class="btn btn-warning changebutton" data-toggle="modal" data-target="#deleteAccount">Usuń konto <i class="fas fa-user-slash"></i> </button>
 						</div>
 					</div>
 				  </div>
@@ -51,23 +89,28 @@
 							{% if incomeCategories is not empty %}
 						  {% for incomeCategory in incomeCategories %}
 							<div class="row border-bottom border-dotted insideAccordion" id="income{{ incomeCategory.id }}">
-							  <div class="col">
-								{{ incomeCategory.name }}
+							 	<table class="table table-sm table-hover table-borderless mb-2">
 							
-							  </div>
-							  <div class="col my-1 ">
-								<span data-toggle="tooltip" data-placement="top" title="Usuń">
+								<tr>
+									<td class="table-settings"> {{ incomeCategory.name }}
+									</td>					
+									<td class="table-settings2">
+									
+										<span data-toggle="tooltip" data-placement="top" title="Usuń">
 									<button class="btn btn-sm btn-danger pull-right mx-1" data-toggle="modal" data-target="#incomeDeletemodal{{ incomeCategory.id }}">
 									  <i class="far fa-trash-alt"></i>
 									</button>
-								</span>
-								<span data-toggle="tooltip" data-placement="top" title="Edytuj">
+									</span>
+										
+										<span data-toggle="tooltip" data-placement="top" title="Edytuj">
 									<button class="btn btn-sm btn-secondary pull-right" data-toggle="modal" data-target="#incomeEditModal{{ incomeCategory.id }}">
 									  <i class="fas fa-wrench"></i>
 									</button>
-								</span>
+									</span>
+									</td>
+								</tr>
+								</table>
 							
-							</div>
 							</div>  
 						  {% endfor %}
 							{% else %}
@@ -92,30 +135,43 @@
 					  
 					  	{% if expenseCategories is not empty %}
                       {% for expenseCategory in expenseCategories %}
-                        <div class="row border-bottom insideAccordion" id="expense{{ expenseCategory.id }}">
-                          <div class="col">
-                            {{ expenseCategory.name }}
-						
-                          </div>
-						  <div class="col my-1 ">
-							<span data-toggle="tooltip" data-placement="top" title="Usuń">
-							    <button class="btn btn-sm btn-danger pull-right mx-1" data-toggle="modal" data-target="#expenseDeleteModal{{ expenseCategory.id }}">
-								  <i class="far fa-trash-alt"></i>
-								</button>
-							</span>
-							<span data-toggle="tooltip" data-placement="top" title="Edytuj">
-								<button class="btn btn-sm btn-secondary pull-right " data-toggle="modal" data-target="#expenseEditModal{{ expenseCategory.id }}">
-								  <i class="fas fa-wrench"></i>
-								</button>
-							</span>
-							<span data-toggle="tooltip" data-placement="top" title="Ustaw limit">
-								<button class="btn btn-sm btn-warning pull-right mx-1" data-toggle="modal" data-target="#expenseLimitModal{{ expenseCategory.id }}">
-								  <i class="fas fa-arrows-alt-h"></i>
-								</button>
-							</span>
+                        <div class="row border-bottom insideAccordion" id="expense{{expenseCategory.id }}">
+						<table class="table table-sm table-hover table-borderless mb-2">
+							
+								<tr>
+									<td class="table-settings"> {{ expenseCategory.name }}
+									{% if expenseCategory.expenseLimit > 0 %}
+									<br> <span class="limit ml-3">Limit: {{ expenseCategory.expenseLimit }} zł</span>
+									{% endif %}
+									</td>					
+									<td class="table-settings2">
+										<span data-toggle="tooltip" data-placement="top" title="Usuń">
+											<button class="btn btn-sm btn-danger pull-right mx-1" data-toggle="modal" data-target="#expenseDeleteModal{{expenseCategory.id }}">
+											  <i class="far fa-trash-alt"></i>
+											</button>
+										</span>
+													
+										<span data-toggle="tooltip" data-placement="top" title="Edytuj">
+											<button class="btn btn-sm btn-secondary pull-right " data-toggle="modal" data-target="#expenseEditModal{{expenseCategory.id }}">
+											  <i class="fas fa-wrench"></i>
+											</button>
+										</span>
+										
+										<span data-toggle="tooltip" data-placement="top" title="Ustaw limit">
+											<button class="btn btn-sm btn-warning pull-right mx-1" data-toggle="modal" data-target="#expenseLimitModal{{expenseCategory.id }}">
+											  <i class="fas fa-arrows-alt-h"></i>
+											</button>
+										</span>
+									</td>
+								</tr>
+                          
+						  
+							
+						</table>
+							
 						
 						</div>
-                        </div>  
+                         
                       {% endfor %}
                     {% else %}
                       <p class="text-light"> Brak kategorii wydatków</p>
@@ -139,20 +195,22 @@
 					  	{% if paymentCategories is not empty %}
                       {% for paymentCategory in paymentCategories %}
                         <div class="row border-bottom insideAccordion" id="payment{{ paymentCategory.id }}">
-                          <div class="col">
-                            {{ paymentCategory.name }}
+                        <table class="table table-sm table-hover table-borderless mb-2">
 						
-                          </div>
-						  <div class="col my-1 ">
-						   <button class="btn btn-sm btn-danger pull-right mx-1" data-toggle="modal" data-target="#paymentDeleteModal{{ paymentCategory.id }}">
-                              <i class="far fa-trash-alt"></i>
-                            </button>
-						  		<button class="btn btn-sm btn-secondary pull-right" data-toggle="modal" data-target="#paymentEditModal{{ paymentCategory.id }}">
-                              <i class="fas fa-wrench"></i>
-                            </button>
+								<tr>
+									<td class="table-settings"> {{ paymentCategory.name }}</td>					
+									<td class="table-settings2">
+										<button class="btn btn-sm btn-danger pull-right mx-1" data-toggle="modal" data-target="#paymentDeleteModal{{ paymentCategory.id }}">
+										  <i class="far fa-trash-alt"></i>
+										</button>
+										
+										<button class="btn btn-sm btn-secondary pull-right" data-toggle="modal" data-target="#paymentEditModal{{ paymentCategory.id }}">
+										  <i class="fas fa-wrench"></i>
+										</button>
 						
+								</tr>
+						</table>
 						
-						</div>
                         </div>  
                       {% endfor %}
 						{% else %}
@@ -258,8 +316,11 @@
 
 {% block footer %}
 
+
+
 <!-- INCOMES MODALS-->
 
+{% for incomeCategory in incomeCategories %}
 <!-- income modal edit-->
 		<div class="modal fade" id="incomeEditModal{{ incomeCategory.id }}" tabindex="-1" aria-labelledby="editmodallabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -274,7 +335,8 @@
 						<div class="modal-text">Podaj nową nazwę kategorii:
 										
 							<form action="/settings/updateIncomesCategory" method="post" >
-								<input type="hidden" value={{ incomeCategory.id }} name="currentId">
+								<input type="hidden" value= {{ incomeCategory.id }} name="currentId">
+								<input type="hidden" value= {{ incomeCategory.name }} name="currentName">
 								<input type="text" class="form-control" placeholder="nowa nazwa" name="newName" required>
 								<br>
 								Czy na pewno chcesz zmienić nazwę ? 
@@ -343,11 +405,13 @@
 							</div>
 						  </div>
 						</div>	
+						
+{% endfor %}
 
 <!-- EXPENCES MODALS-->					
-		
+	{% for expenseCategory in expenseCategories %}	
 <!-- expense modal edit-->
-		<div class="modal fade" id="expenseEditModal{{ expenseCategory.id }}" tabindex="-1" aria-labelledby="editmodallabel" aria-hidden="true">
+		<div class="modal fade" id="expenseEditModal{{expenseCategory.id }}" tabindex="-1" aria-labelledby="editmodallabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -359,7 +423,7 @@
 					<div class="modal-body">
 						<div class="modal-text">Podaj nową nazwę kategorii:
 										
-							<form action="/settings/updateExpenseCategory" method="post" >
+							<form action="/settings/updateExpensesCategory" method="post" >
 								<input type="hidden" value={{ expenseCategory.id }} name="currentId">
 								<input type="text" class="form-control" placeholder="nowa nazwa" name="newName" required>
 								<br>
@@ -377,7 +441,7 @@
 		</div>	
 		
 <!-- expense modal limit-->
-								<div class="modal fade" id="expenseLimitModal{{ expensCategory.id }}" tabindex="-1" aria-labelledby="limitmodallabel" aria-hidden="true">
+								<div class="modal fade" id="expenseLimitModal{{expenseCategory.id }}" tabindex="-1" aria-labelledby="limitmodallabel" aria-hidden="true">
 								  <div class="modal-dialog">
 									<div class="modal-content">
 									  <div class="modal-header">
@@ -390,7 +454,7 @@
 										<div class="modal-text">Podaj limit wydatków w danej kategorii:
 										
 										<form action="/settings/limitExpensesCategory" method="post" >
-											<input type="hidden" value={{ expensCategory.id }} name="currentId">
+											<input type="hidden" value={{ expenseCategory.id }} name="currentId">
 											<input type="number" step="0.01" class="form-control" placeholder="limit wydatków" name="limit" required>
 											</div>
 										</div>
@@ -399,7 +463,7 @@
 										<input class="btn btn-success" type="submit" value="Zapisz zmiany"/>
 										</form>
 										<form action="/settings/deleteLimitExpensesCategory" method="post" >
-											<input type="hidden" value={{ expensCategory.id }} name="currentId">
+											<input type="hidden" value={{ expenseCategory.id }} name="currentId">
 											<input class="btn btn-danger" type="submit" value="Usuń limit"/>
 										</form>
 									  </div>
@@ -408,7 +472,7 @@
 								</div>	
 								
 <!-- expense modal delete-->
-								<div class="modal fade" id="expenseDeleteModal{{ expenseCategory.id }}" tabindex="-1" aria-labelledby="deletemodallabel" aria-hidden="true">
+								<div class="modal fade" id="expenseDeleteModal{{expenseCategory.id }}" tabindex="-1" aria-labelledby="deletemodallabel" aria-hidden="true">
 								  <div class="modal-dialog">
 									<div class="modal-content">
 									  <div class="modal-header">
@@ -418,8 +482,8 @@
 										</button>	
 									  </div>
 									  <div class="modal-body modal-text">
-										<form action="/settings/deleteExpenseCategory" method="post" >
-										  <input type="hidden" value={{ expensCategory.id }} name="deletedId">
+										<form action="/settings/deleteExpensesCategory" method="post" >
+										  <input type="hidden" value={{ expenseCategory.id }} name="deletedId">
 										  Czy na pewno chcesz usunąć całą kategorię wraz ze wszystkimi wydatkami?
 										  										  
 									  </div>
@@ -434,7 +498,7 @@
 								  </div>
 								</div>
 								
-<!-- modal expence add new-->
+<!-- modal expense add new-->
 						<div class="modal fade" id="addNewExpenseModal" tabindex="-1" aria-labelledby="addmodallabel" aria-hidden="true">
 						  <div class="modal-dialog">
 							<div class="modal-content">
@@ -458,10 +522,10 @@
 							</div>
 						  </div>
 						</div>	
-
+{% endfor %}
 
 <!-- PAYMENT MODALS-->		
-							
+{% for paymentCategory in paymentCategories %}						
 <!-- payment modal edit-->
 		<div class="modal fade" id="paymentEditModal{{ paymentCategory.id }}" tabindex="-1" aria-labelledby="editmodallabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -542,5 +606,122 @@
 							  </div>
 							</div>
 						  </div>
-						</div>									
+						</div>	
+{% endfor %}	
+
+<!-- Profile MODALS-->					
+	
+<!-- change name-->
+		<div class="modal fade" id="changeNameModal" tabindex="-1" aria-labelledby="changenamemodallabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="changenamemodallabel">Zmień imię</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="close">
+						  <span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="modal-text">Podaj nowe imię:
+										
+							<form action="/settings/changeName" method="post" >
+								<input type="text" class="form-control" placeholder="nowe imię" name="name" required>
+								<br>
+								Czy na pewno chcesz zmienić imię ? 
+						</div>	
+
+					</div>
+					<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+								<input class="btn btn-success" type="submit" value="Zmień imię"/>
+							</form>
+					</div>
+				</div>
+			</div>
+		</div>		
+
+<!-- change password-->
+		<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModallabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="changeEmailModallabel">Zmień hasło</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="close">
+						  <span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="modal-text">Podaj nowy email:
+										
+							<form action="/settings/changePassword" method="post" id="fo">
+								<input type="password" class="form-control" placeholder="nowe hasło" name="password" required>
+								<br>
+								Czy na pewno chcesz zmienić hasło ? 
+						</div>	
+
+					</div>
+					<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+								<input class="btn btn-success" type="submit" value="Zmień hasło"/>
+							</form>
+					</div>
+				</div>
+			</div>
+		</div>	
+		
+		 <!-- Delete Account Modal -->
+  <div class="modal fade" id="deleteAccount" tabindex="-1" aria-labelledby="deleteAccountLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="deleteAccountModalLabel">Usuwanie konta</h2>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <figure class="text-center h2 mb-5" style="color: red">UWAGA!</br>
+            Ta operacja jest <strong>nieodwracalna!</strong>
+          </figure>
+          <figure class="h5 text-center mt-3">
+            Twoje dane zostaną <strong>bezpowrotnie</strong> usunięte!
+            Czy jesteś pewny, że chcesz kontynuować?
+          </figure>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+          <a class="btn btn-danger" href="/settings/deleteAccount">Tak</a>
+      </div>
+      </div>
+    </div>
+    </div>
+
+
+ <script>
+        $(document).ready(function() {
+
+            /**
+             * Validate the form
+             */
+            $('#formChangePassword').validate({
+                rules: {
+                    
+                    
+                    password: {
+                        required: true,
+                        minlength: 6,
+                        validPassword: true
+                    }
+                },
+                messages: {
+                    password: {
+                        remote: 'Hasło musi składać się co najmniej z 6 znaków w tym 1 litera i 1 liczba'
+                    }
+                }
+            });
+
+
+          
+        });
+    </script>
 {% endblock %}
