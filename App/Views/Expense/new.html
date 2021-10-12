@@ -16,114 +16,105 @@
 
     <h1 class="naglowek">Dodaj wydatek</h1>
 
-    <div class="container">
-	{% if expense.errors is not empty %}
-        <p class = "text-light">Błędy:</p>
-        <ul>
-            {% for error in expense.errors %}
-                <li class = "text-light">{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-	<div class="tableLimit">
-					<div id="limit0" class="row"></div>			
-					<div id="limit1" class="row"></div>			
-					<div id="limit2" class="row"></div>			
-					<div id="limit3" class="row"></div>			
-					<div id="limit4" class="row"></div>			
-				</div>
-	
-    <form id="expense"action="/add-expense/create" method="post">
-	
-	
-		<div class="row my-1" id="logowanie">
-			<div class="form-group w-50">
-				<label class = "text-light loginLabel h3" for="amount">Kwota </label>
-				<div class="input-group">
-						
-						<div class="input-group-prepend">
-							<i class="fas fa-coins"></i> 
-						</div>
-						<input  type="number" step="0.01" id="amount" name="amount" placeholder="Podaj kwotę" autofocus value="{{ amount }}" class="form-control" onchange="getData()"/>
-				</div>
+<div class="container">
+		{% if expense.errors is not empty %}
+			<p class = "text-light">Błędy:</p>
+			<ul>
+				{% for error in expense.errors %}
+					<li class = "text-light">{{ error }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+			<div class="tableLimit">
+				<div id="limit0" class="row"></div>			
+				<div id="limit1" class="row"></div>			
+				<div id="limit2" class="row"></div>			
+				<div id="limit3" class="row"></div>			
+				<div id="limit4" class="row"></div>			
 			</div>
-		</div>
-		<div class="row my-1" id="logowanie">
-			<div class="form-group w-50">
-				<label class = "text-light loginLabel h3" for="theDate">Data </label>
-				<div class="input-group">
-						
-					<div class="input-group-prepend">
-						<i class="fas fa-calendar-week"></i> 
-					</div>
-						<input  type="date" id="theDate" name="dates"  class="form-control" onchange="getData()"/>
-				</div>	
-			</div>
-		</div>
-		
-		<div class="row my-1" id="logowanie">
-			<div class="form-group w-50" aria-label="Metoda płatności">
-				<label class = "text-light loginLabel h3" for="payment"><i class="fas fa-cash-register"></i> Metoda płatności </label>
-				
-						
-				
-						 {% if methods is not empty %}
-                        {% for method in methods %}
-                            <div class ="form-check">
-							<label class="form-check-label text-light">
-							<input class="form-check-input" type="radio" name="payment" value="{{ method.name }}"> {{ method.name }}
-							</label>
-							</div>
-                        {% endfor %}
-                    {% else %}
-                        <input value="" onclick="getData()">Brak metod płatności
-                    {% endif %}
-				
-			</div>
-		</div>
-		<div class="row my-1" id="logowanie">
-			  <div class="form-group w-50 " aria-label="Kategoria" name="groupName">
-			      <label class = "text-light loginLabel h3" for="category"><i class="fas fa-tasks" aria-hidden="true"></i> Kategoria</label>	
-            			 <select class="form-control" name="category" id="category" >	
-				    {% if categories is not empty %}
-                    {% for category in categories  %}
-				
-                        
-                       
-											
-						
-							 <option value="{{ category.id }}" onclick="getData()">{{ category.name }} {% if category.expenseLimit > 0 %} &nbsp &nbsp &nbsp Limit: {{ category.expenseLimit }} {% endif %}
-                                
-							
+			
+	<form id="expense"action="/add-expense/create" method="post">
+			
+			
+				<div class="row my-1" id="logowanie">
+					<div class="form-group w-50">
+						<label class = "text-light loginLabel h3" for="amount">Kwota </label>
+						<div class="input-group">
 								
-							
-                   
-						
-                      {% endfor %}
-                {% else %}
-                    Brak kategorii wydatków
-                {% endif %} 
-                  
-                   </select>  
-                  
+								<div class="input-group-prepend">
+									<i class="fas fa-coins"></i> 
+								</div>
+								<input  type="number" step="0.01" id="amount" name="amount" placeholder="Podaj kwotę" autofocus value="{{ amount }}" class="form-control" onchange="getData()"/>
+						</div>
+					</div>
+				</div>
+				<div class="row my-1" id="logowanie">
+					<div class="form-group w-50">
+						<label class = "text-light loginLabel h3" for="theDate">Data </label>
+						<div class="input-group">
+								
+							<div class="input-group-prepend">
+								<i class="fas fa-calendar-week"></i> 
+							</div>
+								<input  type="date" id="theDate" name="dates"  class="form-control" onchange="getData()"/>
+						</div>	
+					</div>
+				</div>
 				
-            </div>
+				<div class="row my-1" id="logowanie">
+					<div class="form-group w-50" aria-label="Metoda płatności">
+						<label class = "text-light loginLabel h3" for="payment"><i class="fas fa-cash-register"></i> Metoda płatności </label>
+						
+								
+						
+							{% if methods is not empty %}
+							{% for method in methods %}
+								<div class ="form-check">
+									<label class="form-check-label text-light">
+										<input class="form-check-input" type="radio" name="payment" value="{{ method.name }}"> {{ method.name }}
+									</label>
+								</div>
+								{% endfor %}
+							{% else %}
+								<input value="" onclick="getData()">Brak metod płatności
+							{% endif %}
+						
+					</div>
+				</div>
+				<div class="row my-1" id="logowanie">
+					  <div class="form-group w-50 " aria-label="Kategoria" name="groupName">
+						  <label class = "text-light loginLabel h3" for="category"><i class="fas fa-tasks" aria-hidden="true"></i> Kategoria</label>	
+							<select class="form-control" name="category" id="category" >	
+								{% if categories is not empty %}
+								{% for category in categories  %}
 			
-			
-		</div>
-			
-            <div class="row my-1" id="logowanie">
-            <div class="form-group">
-                <h3>
-                    <label class="col-12 text-center text-light" for="comment" id="commentLabel">Komentarz (opcjonalnie)</label>
-                </h3>
-                <textarea class="form-control comment" id="comment" name="comment" placeholder="Napisz swój komentarz :)" onfocus="this.placeholder=''" onblur="this.placeholder='Napisz swój komentarz :)'" rows="4" maxlength="100" aria-label="Komentarz (opcjonalnie)" aria-describedby="commentLabel"></textarea>
-            </div>
-		</div>
-	<div class="row my-2 w-25" id="logowanie">
-       <input type="submit" class="btn btn-success col-sm" form="expense" value="Dodaj wydatek"/>
+								<option value="{{ category.id }}" onclick="getData()">{{ category.name }} {% if category.expenseLimit > 0 %} &nbsp &nbsp &nbsp Limit: {{ category.expenseLimit }} {% endif %}
+	
+								{% endfor %}
+								{% else %}
+									Brak kategorii wydatków
+								{% endif %} 
+								  
+							</select>  
+						  
+						
+					</div>
+					
+					
+				</div>
+					
+				<div class="row my-1" id="logowanie">
+					<div class="form-group">
+						<h3>
+							<label class="col-12 text-center text-light" for="comment" id="commentLabel">Komentarz (opcjonalnie)</label>
+						</h3>
+						<textarea class="form-control comment" id="comment" name="comment" placeholder="Napisz swój komentarz :)" onfocus="this.placeholder=''" onblur="this.placeholder='Napisz swój komentarz :)'" rows="4" maxlength="100" aria-label="Komentarz (opcjonalnie)" aria-describedby="commentLabel"></textarea>
+					</div>
+				</div>
+			<div class="row my-2 w-25" id="logowanie">
+			   <input type="submit" class="btn btn-success col-sm" form="expense" value="Dodaj wydatek"/>
         
-	</div>
+			</div>
     </form>
 </div>
 

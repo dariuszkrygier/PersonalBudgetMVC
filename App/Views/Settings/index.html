@@ -51,22 +51,23 @@
 			
 								<form action="/settings/updatePassword" method="post" id="formChangePassword">
 									<div class="form-group collapse" id="collapsePassword">
-									{% if profile.errors is not empty %}
-        <p class = "text-light">Błędy:</p>
-        <ul>
-            {% for error in profile.errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-										
-											<div class="row" id="logowanie">
+										{% if profile.errors is not empty %}
+										<p class = "text-light">Błędy:</p>
+										<ul>
+											{% for error in profile.errors %}
+											<li>{{ error }}</li>
+											{% endfor %}
+										</ul>
+										{% endif %}
+														
+										<div class="row" id="logowanie">
 											<label>Nowe hasło</label>
-												<input type="password" name="password" class="form-control " placeholder="Nowe hasło" onfocus="this.placeholder=''" onblur="this.placeholder='Nowe hasło'" >
-											</div>
-											<div class="row my-1" id="logowanie">
-												<button type="submit"  class="btn btn-success changebutton">Zatwierdź</button>	
-											</div>
+											<input type="password" name="password" class="form-control " placeholder="Nowe hasło" onfocus="this.placeholder=''" onblur="this.placeholder='Nowe hasło'" >
+										</div>
+										
+										<div class="row my-1" id="logowanie">
+											<button type="submit"  class="btn btn-success changebutton">Zatwierdź</button>	
+										</div>
 										
 									</div>
 								</form>
@@ -76,7 +77,7 @@
 							<button type="button"  class="btn btn-warning changebutton" data-toggle="modal" data-target="#deleteAccount">Usuń konto <i class="fas fa-user-slash"></i> </button>
 						</div>
 					</div>
-				  </div>
+				</div>
 				
 				<div class="card">
 					<div class="card-header">
@@ -87,7 +88,7 @@
 					<div id="collapseTwo" class="collapse" data-parent="#accordion">
 						<div class="card-body text-left my-1 text-light">
 							{% if incomeCategories is not empty %}
-						  {% for incomeCategory in incomeCategories %}
+							{% for incomeCategory in incomeCategories %}
 							<div class="row border-bottom border-dotted insideAccordion" id="income{{ incomeCategory.id }}">
 							 	<table class="table table-sm table-hover table-borderless mb-2">
 							
@@ -95,24 +96,24 @@
 									<td class="table-settings"> {{ incomeCategory.name }}
 									</td>					
 									<td class="table-settings2">
-									
-										<span data-toggle="tooltip" data-placement="top" title="Usuń">
-									<button class="btn btn-sm btn-danger pull-right mx-1" data-toggle="modal" data-target="#incomeDeletemodal{{ incomeCategory.id }}">
-									  <i class="far fa-trash-alt"></i>
-									</button>
-									</span>
 										
+										<span data-toggle="tooltip" data-placement="top" title="Usuń">
+											<button class="btn btn-sm btn-danger pull-right mx-1" data-toggle="modal" data-target="#incomeDeletemodal{{ incomeCategory.id }}">
+											  <i class="far fa-trash-alt"></i>
+											</button>
+										</span>
+											
 										<span data-toggle="tooltip" data-placement="top" title="Edytuj">
-									<button class="btn btn-sm btn-secondary pull-right" data-toggle="modal" data-target="#incomeEditModal{{ incomeCategory.id }}">
-									  <i class="fas fa-wrench"></i>
-									</button>
-									</span>
+											<button class="btn btn-sm btn-secondary pull-right" data-toggle="modal" data-target="#incomeEditModal{{ incomeCategory.id }}">
+											  <i class="fas fa-wrench"></i>
+											</button>
+										</span>
 									</td>
 								</tr>
 								</table>
 							
 							</div>  
-						  {% endfor %}
+							{% endfor %}
 							{% else %}
 							  <p class="text-light"> Brak kategorii przychodów </p>
 							{% endif %}
@@ -125,103 +126,100 @@
 				</div>
 				
 				<div class="card">
-				  <div class="card-header">
-					<a class="collapsed card-link text-dark font-weight-bold" data-toggle="collapse" href="#collapseThree">
-					  <i class="fas fa-cart-arrow-down"></i> Edytuj wydatki
-					</a>
-				  </div>
-				  <div id="collapseThree" class="collapse" data-parent="#accordion">
-					<div class="card-body text-left my-1 text-light">
-					  
-					  	{% if expenseCategories is not empty %}
-                      {% for expenseCategory in expenseCategories %}
-                        <div class="row border-bottom insideAccordion" id="expense{{expenseCategory.id }}">
-						<table class="table table-sm table-hover table-borderless mb-2">
-							
-								<tr>
-									<td class="table-settings"> {{ expenseCategory.name }}
-									{% if expenseCategory.expenseLimit > 0 %}
-									<br> <span class="limit ml-3">Limit: {{ expenseCategory.expenseLimit }} zł</span>
-									{% endif %}
-									</td>					
-									<td class="table-settings2">
-										<span data-toggle="tooltip" data-placement="top" title="Usuń">
-											<button class="btn btn-sm btn-danger pull-right mx-1" data-toggle="modal" data-target="#expenseDeleteModal{{expenseCategory.id }}">
-											  <i class="far fa-trash-alt"></i>
-											</button>
-										</span>
-													
-										<span data-toggle="tooltip" data-placement="top" title="Edytuj">
-											<button class="btn btn-sm btn-secondary pull-right " data-toggle="modal" data-target="#expenseEditModal{{expenseCategory.id }}">
-											  <i class="fas fa-wrench"></i>
-											</button>
-										</span>
-										
-										<span data-toggle="tooltip" data-placement="top" title="Ustaw limit">
-											<button class="btn btn-sm btn-warning pull-right mx-1" data-toggle="modal" data-target="#expenseLimitModal{{expenseCategory.id }}">
-											  <i class="fas fa-arrows-alt-h"></i>
-											</button>
-										</span>
-									</td>
-								</tr>
-                          
-						  
-							
-						</table>
-							
-						
-						</div>
-                         
-                      {% endfor %}
-                    {% else %}
-                      <p class="text-light"> Brak kategorii wydatków</p>
-                    {% endif %} 
+					<div class="card-header">
+						<a class="collapsed card-link text-dark font-weight-bold" data-toggle="collapse" href="#collapseThree">
+							<i class="fas fa-cart-arrow-down"></i> Edytuj wydatki
+						</a>
 					</div>
-					<div class="row d-flex justify-content-center">
-                      <button class="btn btn-secondary" data-toggle="modal" data-target="#addNewExpenseModal"><i class="fas fa-plus" ></i>  Dodaj nową kategorię</button>
-                    </div>
-				  </div>
+						
+					<div id="collapseThree" class="collapse" data-parent="#accordion">
+						<div class="card-body text-left my-1 text-light">
+						  
+							{% if expenseCategories is not empty %}
+							{% for expenseCategory in expenseCategories %}
+							<div class="row border-bottom insideAccordion" id="expense{{expenseCategory.id }}">
+								<table class="table table-sm table-hover table-borderless mb-2">
+									
+									<tr>
+										<td class="table-settings"> {{ expenseCategory.name }}
+											{% if expenseCategory.expenseLimit > 0 %}
+											<br> <span class="limit ml-3">Limit: {{ expenseCategory.expenseLimit }} zł</span>
+											{% endif %}
+										</td>					
+										<td class="table-settings2">
+											<span data-toggle="tooltip" data-placement="top" title="Usuń">
+												<button class="btn btn-sm btn-danger pull-right mx-1" data-toggle="modal" data-target="#expenseDeleteModal{{expenseCategory.id }}">
+												  <i class="far fa-trash-alt"></i>
+												</button>
+											</span>
+														
+											<span data-toggle="tooltip" data-placement="top" title="Edytuj">
+												<button class="btn btn-sm btn-secondary pull-right " data-toggle="modal" data-target="#expenseEditModal{{expenseCategory.id }}">
+												  <i class="fas fa-wrench"></i>
+												</button>
+											</span>
+											
+											<span data-toggle="tooltip" data-placement="top" title="Ustaw limit">
+												<button class="btn btn-sm btn-warning pull-right mx-1" data-toggle="modal" data-target="#expenseLimitModal{{expenseCategory.id }}">
+												  <i class="fas fa-arrows-alt-h"></i>
+												</button>
+											</span>
+										</td>
+									</tr>	
+								</table>
+							</div>
+							 
+							{% endfor %}
+							{% else %}
+							  <p class="text-light"> Brak kategorii wydatków</p>
+							{% endif %} 
+						</div>
+						
+						<div class="row d-flex justify-content-center">
+						  <button class="btn btn-secondary" data-toggle="modal" data-target="#addNewExpenseModal"><i class="fas fa-plus" ></i>  Dodaj nową kategorię</button>
+						</div>
+					</div>
 				</div>
 				
 				<div class="card">
-				  <div class="card-header">
-					<a class="collapsed card-link text-dark font-weight-bold" data-toggle="collapse" href="#collapseFour">
-					  <i class="fas fa-credit-card"></i> Edytuj metody płatności
-					</a>
-				  </div>
-				  <div id="collapseFour" class="collapse" data-parent="#accordion">
-					<div class="card-body text-left text-light my-1">
-					  
-					  	{% if paymentCategories is not empty %}
-                      {% for paymentCategory in paymentCategories %}
-                        <div class="row border-bottom insideAccordion" id="payment{{ paymentCategory.id }}">
-                        <table class="table table-sm table-hover table-borderless mb-2">
-						
-								<tr>
-									<td class="table-settings"> {{ paymentCategory.name }}</td>					
-									<td class="table-settings2">
-										<button class="btn btn-sm btn-danger pull-right mx-1" data-toggle="modal" data-target="#paymentDeleteModal{{ paymentCategory.id }}">
-										  <i class="far fa-trash-alt"></i>
-										</button>
-										
-										<button class="btn btn-sm btn-secondary pull-right" data-toggle="modal" data-target="#paymentEditModal{{ paymentCategory.id }}">
-										  <i class="fas fa-wrench"></i>
-										</button>
-						
-								</tr>
-						</table>
-						
-                        </div>  
-                      {% endfor %}
-						{% else %}
-						  <p class="text-light"> Brak metod płatności </p>
-						{% endif %}
-					  
+					<div class="card-header">
+						<a class="collapsed card-link text-dark font-weight-bold" data-toggle="collapse" href="#collapseFour">
+						  <i class="fas fa-credit-card"></i> Edytuj metody płatności
+						</a>
 					</div>
-					<div class="row d-flex justify-content-center">
-						  <button class="btn btn-secondary" data-toggle="modal" data-target="#addNewPaymentModal"><i class="fas fa-plus" ></i>  Dodaj metodę płatności</button>
+					<div id="collapseFour" class="collapse" data-parent="#accordion">
+						<div class="card-body text-left text-light my-1">
+						  
+							{% if paymentCategories is not empty %}
+							{% for paymentCategory in paymentCategories %}
+							<div class="row border-bottom insideAccordion" id="payment{{ paymentCategory.id }}">
+								<table class="table table-sm table-hover table-borderless mb-2">
+								
+									<tr>
+										<td class="table-settings"> {{ paymentCategory.name }}</td>					
+										<td class="table-settings2">
+											<button class="btn btn-sm btn-danger pull-right mx-1" data-toggle="modal" data-target="#paymentDeleteModal{{ paymentCategory.id }}">
+											  <i class="far fa-trash-alt"></i>
+											</button>
+											
+											<button class="btn btn-sm btn-secondary pull-right" data-toggle="modal" data-target="#paymentEditModal{{ paymentCategory.id }}">
+											  <i class="fas fa-wrench"></i>
+											</button>
+										</td>
+									</tr>
+								</table>
+							
+							</div>  
+						  {% endfor %}
+							{% else %}
+							  <p class="text-light"> Brak metod płatności </p>
+							{% endif %}
+						  
 						</div>
-				  </div>
+						<div class="row d-flex justify-content-center">
+							  <button class="btn btn-secondary" data-toggle="modal" data-target="#addNewPaymentModal"><i class="fas fa-plus" ></i>  Dodaj metodę płatności</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
