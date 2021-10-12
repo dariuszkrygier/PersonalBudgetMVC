@@ -236,7 +236,7 @@ class Expense extends \Core\Model
 	}
 	
 	public static function getLimitForCategory($category){
-		$sql = 'SELECT limitAmount FROM expenseCategories WHERE userId = :id AND categoryName = :category';
+		$sql = 'SELECT expenseLimit FROM expenses_category_assigned_to_users WHERE userId = :id AND categoryName = :category';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -254,6 +254,21 @@ class Expense extends \Core\Model
 		$in =  mb_strtolower($str,"utf8");
 		$out = mb_strtoupper(mb_substr($in, 0, 1)).mb_substr($in, 1);
 		return $out;
+	}
+	
+	public static function getExpenseAssignedToUser($user, $date_start, $date_end) {
+		
+		$sql = 'SELECT expenses_category_assigned_to_users.name, SUM(expenses.amount) AS "amountSum" FROM expenses, expenses_category_assigned_to_users WHERE expenses.user_id = :prep_user_id AND expenses_category_assigned_to_users.user_id = expenses.user_id AND expenses_category_assigned_to_users.id = expenses.expense_category_assigned_to_user_id AND expenses.date_of_expense BETWEEN :prep_startDate AND :prep_endDate GROUP BY expenses_category_assigned_to_users.name ORDER BY amountSum DESC';
+		$db = static::getDB();	
+		$stmt = $db->prepare($sql);		
+
+		$stmt->bindValue(':prep_user_id', $user->id, PDO::PARAM_INT);
+		$stmt->bindValue(':prep_startDate', $date_start, PDO::PARAM_STR);
+		$stmt->bindValue(':prep_endDate', $date_end, PDO::PARAM_STR);
+		
+		$stmt->execute();	
+		
+		return $stmt->fetchAll();
 	}
 	
 
