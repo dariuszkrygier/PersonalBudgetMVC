@@ -262,4 +262,11 @@ $(document).ready(function(){
 	$("#togglePasswordApplyChanges").slideToggle("slow");
   });
 });
-	
+
+function restrict(tis) {
+  var prev = tis.getAttribute("data-prev");
+  prev = (prev != '') ? prev : '';
+  if (Math.round(tis.value*100)/100!=tis.value)
+  tis.value=prev;
+  tis.setAttribute("data-prev",tis.value)
+}

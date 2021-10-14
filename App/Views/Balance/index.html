@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block body %}
-
+{% if totalIncomesAmount - totalExpensesAmount != 0 %}
 <script type="text/javascript">
 
 window.onload = drawChart();
@@ -50,7 +50,7 @@ window.onload = drawChart();
         chart.draw(data, options);
       }
     </script>
-
+{% endif %}
     <h1 class="naglowek">Bilans</h1>
 
 <div class="container">
@@ -208,15 +208,20 @@ window.onload = drawChart();
         <div class="row" id="logowanie">
             <div class="col-12 text-center">
                 
-				{% if totalIncomesAmount - totalExpensesAmount >= 0 %}
+				{% if totalIncomesAmount - totalExpensesAmount > 0 %}
 			<div class="bg-success py-2 px-4">
 				<h5 class="font-weight-bold">Twój bilans: {{ totalIncomesAmount - totalExpensesAmount }} zł</h5>
 				<h5 class="font-weight-bold">Gratulacje. Świetnie zarządzasz finansami!</h5>
 			</div>
-		{% else %}
+		{% elseif  totalIncomesAmount - totalExpensesAmount < 0 %}
 			<div class="bg-danger py-2 px-4">
 				<h5 class="font-weight-bold">Twój bilans: {{ totalIncomesAmount - totalExpensesAmount }} zł</h5>
 				<h5 class="font-weight-bold">Uważaj, wpadasz w długi!</h5>
+			</div>
+		{% else	%}
+			<div class="bg-info py-2 px-4">
+				<h5 class="font-weight-bold">Twój bilans: {{ totalIncomesAmount - totalExpensesAmount }} zł</h5>
+				<h5 class="font-weight-bold">Bilans wychodzi na 0!</h5>
 			</div>
 		{% endif %}
 				

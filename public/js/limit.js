@@ -104,7 +104,7 @@ function getData()  {
 							}
 			
 
-						if(limit > 0) {
+						if(limit > 0 && amount > 0) {
 							document.getElementById("limit0").innerHTML = div0;
 							document.getElementById("limit1").innerHTML = div1;
 							document.getElementById("limit2").innerHTML = div2;

@@ -4,8 +4,9 @@
 {% block footer %}
     <script src="/js/hideShowPassword.min.js"></script>
     <script src="/js/app.js"></script>
-	 <script src="/js/limit.js"></script>
-	 <script src="/js/setDate.js"></script>		
+	<script src="/js/limit.js"></script>
+	<script src="/js/setDate.js"></script>		
+	<script src="/js/budget1.js"></script>
 
 	
 
@@ -44,7 +45,7 @@
 								<div class="input-group-prepend">
 									<i class="fas fa-coins"></i> 
 								</div>
-								<input  type="number" step="0.01" id="amount" name="amount" placeholder="Podaj kwotę" autofocus value="{{ amount }}" class="form-control" onchange="getData()"/>
+								<input  type="number" step="0.01" id="amount" name="amount" placeholder="Podaj kwotę" autofocus value="{{ amount }}" class="form-control" onchange="getData()" oninput="restrict(this);"/>
 						</div>
 					</div>
 				</div>
